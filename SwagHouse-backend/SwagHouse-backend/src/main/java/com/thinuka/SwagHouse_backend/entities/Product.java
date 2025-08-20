@@ -1,14 +1,13 @@
 package com.thinuka.SwagHouse_backend.entities;
 
-;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -21,9 +20,10 @@ import java.util.UUID;
 @Builder
 public class Product {
 
+    @Id
     @Column
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column
     private String name;

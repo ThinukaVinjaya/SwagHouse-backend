@@ -2,12 +2,14 @@ package com.thinuka.SwagHouse_backend.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.postgresql.gss.GssEncAction;
 
-import javax.persistence.*;
+
 import java.util.UUID;
 
 @Entity
@@ -19,8 +21,8 @@ import java.util.UUID;
 public class Resources {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(nullable = false)
     private String name;

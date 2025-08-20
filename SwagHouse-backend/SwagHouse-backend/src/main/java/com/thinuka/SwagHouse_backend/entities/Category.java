@@ -1,12 +1,13 @@
 package com.thinuka.SwagHouse_backend.entities;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +20,8 @@ import java.util.UUID;
 public class Category {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(nullable = false)
     private String name;
