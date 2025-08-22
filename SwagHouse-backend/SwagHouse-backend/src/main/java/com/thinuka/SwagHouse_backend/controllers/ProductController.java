@@ -48,8 +48,40 @@ public class ProductController {
 
     // create Product
     @PostMapping
-    public ResponseEntity<Product> crateProduct(@RequestBody ProductDto productDto){
-        Product product1 = productService.addProduct(productDto);
-        return null;
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
+        // Convert DTO -> Entity
+        Product product = mapToEntity(productDto);
+
+        // Save using service
+        Product savedProduct = productService.addProduct(product);
+
+        // Convert Entity -> DTO
+        ProductDto savedDto = mapToDto(savedProduct);
+
+        // Return with HTTP 201 Created
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedDto);
     }
+
+
+    private Product mapToEntity(ProductDto dto) {
+        return Product.builder()
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .price(dto.getPrice())
+                .brand(dto.getBrand())
+                .isNewArrival(dto.isNewArrival())
+                .build();
+    }
+
+    private ProductDto mapToDto(Product product) {
+        return ProductDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .brand(product.getBrand())
+                .isNewArrival(product.isNewArrival())
+                .build();
+    }
+
 }
