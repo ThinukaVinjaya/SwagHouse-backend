@@ -7,9 +7,16 @@ import java.util.List;
 
 public interface ProductService {
 
-    public Product addProduct(Product product);
+    public Product addProduct(ProductDto product);
+    public List<ProductDto> getAllProducts(Long categoryId, Long typeId);
 
-    public List<Product> getAllProducts();
+    ProductDto getProductBySlug(String slug);
+
+    ProductDto getProductById(Long id);
+
+    Product updateProduct(ProductDto productDto, Long id);
+
+    Product fetchProductById(Long uuid) throws Exception;
 
 
 }

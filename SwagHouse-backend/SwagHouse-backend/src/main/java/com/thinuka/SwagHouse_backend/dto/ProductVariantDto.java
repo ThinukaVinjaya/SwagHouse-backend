@@ -1,5 +1,8 @@
 package com.thinuka.SwagHouse_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.thinuka.SwagHouse_backend.entities.Product;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProductVariantDto {
+
     private Long id;
     private String color;
     private String size;

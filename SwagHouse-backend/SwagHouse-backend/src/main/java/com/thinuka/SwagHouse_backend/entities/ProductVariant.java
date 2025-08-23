@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-import java.util.UUID;
 
 @Entity
 @Table(name = "product_variant")
@@ -19,7 +18,7 @@ import java.util.UUID;
 public class ProductVariant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)

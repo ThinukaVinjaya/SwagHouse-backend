@@ -21,8 +21,13 @@ public class ProductDto {
     private BigDecimal price;
     private String brand;
     private boolean isNewArrival;
+    private Float rating;
     private Long categoryId;
+    private String thumbnail;
+    private String slug;
+    private String categoryName;
     private Long categoryTypeId;
+    private String categoryTypeName;
     private List<ProductVariantDto> variants;
     private List<ProductResourceDto> productResources;
 
