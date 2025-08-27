@@ -255,7 +255,7 @@
         "category_id": 2,
         "type_id": 10,
         "brand": "Nike",
-        "price": 49.99,
+        "price": 5000,
         "size": ["S", "M", "L"],
         "color": ["Black","Blue"],
         "discount": 20,
