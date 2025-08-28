@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const ProductCard = ({id,title,description,price,discoutnt,rating,brand,thumbnail,slug}) => {
   return (
     <div className='flex flex-col hover:scale-105 relative'>
-      <Link to={`/product/${id}`}>
+      <Link to={`/product/${slug}`}>
         <img className={`h-[320px] w-[280px]
          border border-gray-100 rounded-lg cursor-pointer object-cover block`} src={thumbnail} alt={title}/>
          </Link>
@@ -16,7 +16,7 @@ const ProductCard = ({id,title,description,price,discoutnt,rating,brand,thumbnai
           {description && <p className='text-[12px] px-1 text-gray-600'>{brand}</p>}
           </div>
           <div>
-            <p>${price}</p>
+            <p>LKR{price}</p>
           </div>
         </div>
         <button onClick={()=> console.log("Click button")} className='absolute top-0 right-0 pt-4 pr-4 cursor-pointer'><SvgFavourite /></button>

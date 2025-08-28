@@ -12,10 +12,12 @@ import SvgReturn from '../../components/common/SvgReturn.jsx';
 import SectionHeading from '../../components/Sections/SectionsHeading/SectionsHeading'
 import ProductCard from '../ProductListPage/ProductCard';
 import _ from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../../api/fetchProducts.jsx';
 
 
 
-const categories = content?.categories;
+//const categories = content?.categories;
 
 const extraSections = [
   {
@@ -41,18 +43,27 @@ const ProductDetails = () => {
   const [image, setImage] = useState(product?.thumbnail);
   const [breadCrumbLinks, setBreadCrumbLink] = useState([]);
   const [selecteSize, setSelectedSize] = useState('');
-  const [error,setError] = useState('');
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cartState?.cart);
+  const [similarProduct, setSimilarProducts] = useState([]);
+  const categories = useSelector((state) => state?.categoryState?.categories);
 
-  const similarProduct = useMemo(() => {
-    return content?.products?.filter((item) => (item?.type_id === product?.type_id && item?.id !== product?.id));
 
-  }, [product]);
 
 
   const productCategory = useMemo(() => {
     return categories?.find((category) => category?.id === product?.categoryId);
   }, [product, categories]);
 
+  useEffect(() => {
+    getAllProducts(product?.categoryId, product?.categoryTypeId).then(res => {
+      const excludedProduct = res?.filter((item) => item?.id !== product?.id);
+      setSimilarProducts(excludedProduct);
+    }).catch(() => [
+
+    ])
+  }, [product?.categoryId, product?.categoryTypeId, product?.id]);
 
 
   useEffect(() => {
@@ -101,7 +112,7 @@ const ProductDetails = () => {
 
 },[dispatch, product, selecteSize]);*/}
 
- 
+
 
   useEffect(() => {
     if (selecteSize) {
@@ -132,8 +143,8 @@ const ProductDetails = () => {
               {/* Stack images */}
               <div className='flex flex-row md:flex-col justify-center h-full'>
                 {
-                  product?.images?.map((item, index) => (
-                    <button onClick={()=> setImage(item)} className='rounded-lg w-fit p-2 mb-2'>< img src={item} className='h-[60px] w-[60px] bg-cover bg-center hover:scale-105' alt={'sample-'+index}/></button>
+                  product?.productResources?.map((item, index) => (
+                    <button key={index} onClick={() => setImage(item?.url)} className='rounded-lg w-fit p-2 mb-2'><img src={item?.url} className='h-[60px] w-[60px] rounded-lg bg-cover bg-center hover:scale-105 hover:border' alt={'sample-' + index} /></button>
                   ))
                 }
               </div>
@@ -152,7 +163,7 @@ const ProductDetails = () => {
           <p className='text-3xl pt-4'>{product?.name}</p>
           <Rating rating={product?.rating} />
           {/* Price Tag */}
-          <p className='text-xl bold py-2'>${product?.price}</p>
+          <p className='text-xl bold py-2'>LKR{product?.price}</p>
           <div className='flex flex-col py-2'>
             <div className='flex gap-2'>
               <p className='text-sm bold'>Select Size</p>
@@ -171,7 +182,7 @@ const ProductDetails = () => {
               <path d="M1.5 1.33325H2.00526C2.85578 1.33325 3.56986 1.97367 3.6621 2.81917L4.3379 9.014C4.43014 9.8595 5.14422 10.4999 5.99474 10.4999H13.205C13.9669 10.4999 14.6317 9.98332 14.82 9.2451L15.9699 4.73584C16.2387 3.68204 15.4425 2.65733 14.355 2.65733H4.5M4.52063 13.5207H5.14563M4.52063 14.1457H5.14563M13.6873 13.5207H14.3123M13.6873 14.1457H14.3123M5.66667 13.8333C5.66667 14.2935 5.29357 14.6666 4.83333 14.6666C4.3731 14.6666 4 14.2935 4 13.8333C4 13.373 4.3731 12.9999 4.83333 12.9999C5.29357 12.9999 5.66667 13.373 5.66667 13.8333ZM14.8333 13.8333C14.8333 14.2935 14.4602 14.6666 14 14.6666C13.5398 14.6666 13.1667 14.2935 13.1667 13.8333C13.1667 13.373 13.5398 12.9999 14 12.9999C14.4602 12.9999 14.8333 13.373 14.8333 13.8333Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
             </svg>Add to cart</div></button>
           </div>
-          
+
           {error && <p className='text-lg text-red-600'>{error}</p>}
           <div className='grid md:grid-cols-2 gap-4 pt-4'>
             {/*  */}

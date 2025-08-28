@@ -17,7 +17,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
-@RequestMapping("api/products")
+@RequestMapping("/api/products")
 public class ProductController {
 
     private ProductService productService;
@@ -59,5 +59,6 @@ public class ProductController {
         Product product = productService.updateProduct(productDto,id);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
+
 
 }
