@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@CrossOrigin(origins = "http://127.0.0.1:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
