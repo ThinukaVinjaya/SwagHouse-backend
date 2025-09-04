@@ -35,9 +35,12 @@ public class JWTTokenHelper {
     }
 
     private Key getSigningKey() {
-        byte[] keysBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keysBytes);
+        // If your secret key is a plain string (not Base64), use UTF-8 bytes
+        byte[] keyBytes = secretKey.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
+
+
 
     private Date generateExpirationDate() {
         return new Date(new Date().getTime() + expiresIn * 1000L);

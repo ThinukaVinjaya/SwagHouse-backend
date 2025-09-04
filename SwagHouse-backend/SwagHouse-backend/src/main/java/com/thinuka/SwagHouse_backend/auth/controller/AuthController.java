@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 @RequestMapping("/api/auth")
 public class AuthController {
 
